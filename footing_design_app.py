@@ -576,8 +576,6 @@ def result_box(label, value, allowable, unit, safe_if="less"):
     </div>
     """
 
-# --- Show summary at the top ---
-st.markdown("## 🔎 Design Summary Highlights")
 
 summary_html = ""
 summary_html += result_box("Maximum Soil Pressure", qmax, q_allow, "kPa", safe_if="less")
@@ -588,7 +586,7 @@ summary_html += result_box("Punching Shear (Vp)", Vp, Vpa, "MPa", safe_if="less"
 summary_html += f"""
 <div style="background-color:yellow; padding:10px; border-radius:8px; margin-top:10px;">
     <b>Reinforcement Requirement</b><br>
-    Provide {num_bars} bars of {bar_dia} mm DRB both ways.
+    Provide {n} bars of {d_b_mm} mm DRB both ways.
 </div>
 """
 
