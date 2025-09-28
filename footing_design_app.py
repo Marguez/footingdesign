@@ -576,19 +576,18 @@ def result_box(label, value, allowable, unit, safe_if="less"):
     </div>
     """
 
-
 summary_html = ""
 summary_html += result_box("Maximum Soil Pressure", qmax, q_allow, "kPa", safe_if="less")
 summary_html += result_box("One-Way Shear (Vd)", Vd, Vda, "MPa", safe_if="less")
 summary_html += result_box("Punching Shear (Vp)", Vp, Vpa, "MPa", safe_if="less")
 
-# Reinforcement always shown
-summary_html += f"""
-<div style="background-color:green; padding:10px; border-radius:8px; margin-top:10px;">
-    <b>Reinforcement Requirement</b><br>
-    Provide {n} bars of {d_b_mm} mm DRB both ways.
-</div>
-"""
+summary_html += (
+    f"<div style='background-color:green; padding:10px; border-radius:8px; margin-top:10px;'>"
+    f"<b>Reinforcement Requirement</b><br>"
+    f"Provide {n} bars of {d_b_mm} mm DRB both ways."
+    f"</div>"
+)
+
 
 st.markdown(summary_html, unsafe_allow_html=True)
 
