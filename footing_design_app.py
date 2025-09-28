@@ -376,7 +376,7 @@ if CASE == 3:
         n = math.ceil(As * 4 / (math.pi * d_b_mm**2))
 
         st.write(f"As = {As:.2f} mm²")
-        st.write(f"Provide {n}–{d_b_mm} mm diameter DRB both ways.")
+        st.warning(f"Provide {n}–{d_b_mm} mm diameter DRB both ways.")
 
     elif M_UZ > M_UX:
         st.write(f"M_UZ of {M_UZ:.2f} kN-m governs.")
@@ -423,7 +423,7 @@ if CASE == 3:
         As = rho_des * L * d * 1e6  # mm2
         n = math.ceil(As * 4 / (math.pi * d_b_mm**2))
         st.write(f"As = {As:.2f} mm²")
-        st.write(f"Provide {n}–{d_b_mm} mm diameter DRB both ways.")
+        st.warning(f"Provide {n}–{d_b_mm} mm diameter DRB both ways.")
 
 elif CASE == 2:
     st.write(f"CASE = 2: M_UX governs (M_UX = {M_UX:.2f} kN-m).")
@@ -470,7 +470,7 @@ elif CASE == 2:
     As = rho_des * L * d * 1e6  # mm2
     n = math.ceil(As * 4 / (math.pi * d_b_mm**2))
     st.write(f"As = {As:.2f} mm²")
-    st.write(f"Provide {n}–{d_b_mm} mm diameter DRB both ways.")
+    st.warning(f"Provide {n}–{d_b_mm} mm diameter DRB both ways.")
 
 elif CASE == 1:
     if B > L:
@@ -510,7 +510,7 @@ elif CASE == 1:
         As = rho_des * L * d * 1e6  # mm2
         n = math.ceil(As * 4 / (math.pi * d_b_mm**2))
         st.write(f"As = {As:.2f} mm²")
-        st.write(f"Provide {n}–{d_b_mm} mm diameter DRB both ways.")
+        st.warning(f"Provide {n}–{d_b_mm} mm diameter DRB both ways.")
     else:
         st.write("CASE = 1, L >= B: flexural check across L.")
         MUD = 0.5 * WU * x**2
@@ -548,7 +548,7 @@ elif CASE == 1:
         As = rho_des * B * d * 1e6  # mm2
         n = math.ceil(As * 4 / (math.pi * d_b_mm**2))
         st.write(f"As = {As:.2f} mm²")
-        st.write(f"Provide {n}–{d_b_mm} mm diameter DRB both ways.")
+        st.warning(f"Provide {n}–{d_b_mm} mm diameter DRB both ways.")
 
 # ---------------------------
 # Downloadable summary
