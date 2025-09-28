@@ -584,7 +584,7 @@ summary_html += result_box("Punching Shear (Vp)", Vp, Vpa, "MPa", safe_if="less"
 
 # Reinforcement always shown
 summary_html += f"""
-<div style="background-color:yellow; padding:10px; border-radius:8px; margin-top:10px;">
+<div style="background-color:green; padding:10px; border-radius:8px; margin-top:10px;">
     <b>Reinforcement Requirement</b><br>
     Provide {n} bars of {d_b_mm} mm DRB both ways.
 </div>
