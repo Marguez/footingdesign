@@ -60,6 +60,7 @@ M_Z = M_DZ + M_LZ
 
 # effective bearing capacity
 q_e = q_a - gamma_s * (d_f - t) - gamma_c * t
+q_allow = q_e
 
 # Determine CASE
 if P != 0 and M_X != 0 and M_Z != 0:
