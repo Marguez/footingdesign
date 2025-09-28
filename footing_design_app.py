@@ -550,6 +550,50 @@ elif CASE == 1:
         st.write(f"As = {As:.2f} mm²")
         st.warning(f"Provide {n}–{d_b_mm} mm diameter DRB both ways.")
 
+st.markdown("## 🔎 Design Summary Highlights")
+def result_box(label, value, allowable, unit, safe_if="less"):
+    if safe_if == "less":  # stress checks (value < allowable is safe)
+        if value <= allowable:
+            color = "green"
+            status = "SAFE"
+        else:
+            color = "red"
+            status = "FAILED"
+    else:  # capacity checks (value > allowable is safe)
+        if value >= allowable:
+            color = "green"
+            status = "SAFE"
+        else:
+            color = "red"
+            status = "FAILED"
+
+    return f"""
+    <div style="background-color:{color}; padding:10px; border-radius:8px; margin-bottom:5px;">
+        <b>{label}</b><br>
+        Value = {value:.2f} {unit} | Allowable = {allowable:.2f} {unit} <br>
+        <b>Status: {status}</b>
+    </div>
+    """
+
+# --- Show summary at the top ---
+st.markdown("## 🔎 Design Summary Highlights")
+
+summary_html = ""
+summary_html += result_box("Maximum Soil Pressure", qmax, q_allow, "kPa", safe_if="less")
+summary_html += result_box("One-Way Shear (Vd)", Vd, Vf_allow, "MPa", safe_if="less")
+summary_html += result_box("Punching Shear (Vp)", Vp, Vp_allow, "MPa", safe_if="less")
+
+# Reinforcement always shown
+summary_html += f"""
+<div style="background-color:yellow; padding:10px; border-radius:8px; margin-top:10px;">
+    <b>Reinforcement Requirement</b><br>
+    Provide {num_bars} bars of {bar_dia} mm DRB both ways.
+</div>
+"""
+
+st.markdown(summary_html, unsafe_allow_html=True)
+
+
 # ---------------------------
 # Downloadable summary
 # ---------------------------
