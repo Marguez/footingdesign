@@ -581,8 +581,8 @@ st.markdown("## 🔎 Design Summary Highlights")
 
 summary_html = ""
 summary_html += result_box("Maximum Soil Pressure", qmax, q_allow, "kPa", safe_if="less")
-summary_html += result_box("One-Way Shear (Vd)", Vd, Vf_allow, "MPa", safe_if="less")
-summary_html += result_box("Punching Shear (Vp)", Vp, Vp_allow, "MPa", safe_if="less")
+summary_html += result_box("One-Way Shear (Vd)", Vd, Vda, "MPa", safe_if="less")
+summary_html += result_box("Punching Shear (Vp)", Vp, Vpa, "MPa", safe_if="less")
 
 # Reinforcement always shown
 summary_html += f"""
