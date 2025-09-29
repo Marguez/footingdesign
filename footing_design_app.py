@@ -602,7 +602,7 @@ if B != L:
 
     st.write(f"MUTx = {MUTx:.2f} kN-m")
 
-    if MUT > MUD:
+    if MUTx > MUD:
         st.success("Since MUT > MUD, tension-controlled (phi = 0.9)")
         phi = 0.9
     else:
@@ -675,7 +675,7 @@ if B != L:
 
     st.write(f"MUTz = {MUTz:.2f} kN-m")
 
-    if MUT > MUD:
+    if MUTz > MUD:
         st.success("Since MUT > MUD, tension-controlled (phi = 0.9)")
         phi = 0.9
     else:
