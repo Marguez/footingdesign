@@ -557,13 +557,13 @@ if B != L:
     # Reinforcement for X direction
     st.write(f"***Reinforcement for X direction***")
     if CASE == 1:
-       st.write(f"*Case 1 – Axial Only*")
+        st.write(f"*Case 1 – Axial Only*")
         WU = P_U / B
         x = (B - cx) / 2
         MUD = 0.5 * WU * x**2
         st.write(f"x = {x:.2f} m.")
         st.write(f"WU = {WU:.2f} kN/m²")
-        st.write(f"MUD = {MUD:.2f} kN-m")
+        st.write(f"MUD = {MUD:.2f} kN-m")                    
 
     if CASE == 2:
         st.write(f"*Case 2 – Axial and Moment about X Direction Only*")
