@@ -624,7 +624,7 @@ if B != L:
     st.write(f"rho_min = {rho_min:.5f}")
     st.write(f"rho_des (governs) = {rho_des:.5f}")
     st.write(f"As = {As:.2f} mm²")
-    st.write(f"n = {nx.2f) along the X-direction")
+    st.write(f"n = {nx:.2f} along the X-direction")
 
     # Reinforcement for Z direction
     st.write(f"*Reinforcement for Z direction*")
@@ -633,7 +633,7 @@ if B != L:
         WU = P_U / L
         x = (L - cy) / 2
         MUD = 0.5 * WU * x**2
-        st.write(f"x = {x.2f} m.")
+        st.write(f"x = {x:.2f} m.")
         st.write(f"WU = {WU:.2f} kN/m²")
         st.write(f"MUD = {MUD:.2f} kN-m")
 
@@ -644,7 +644,7 @@ if B != L:
         WU2 = P_U / B - 6 * M_UZ / (L ** 2)
         WU4 = WU1 - (WU1 - WU2) * (x / L)
         MUD = 0.5 * WU1 * x * (2/3 * x) + 0.5 * WU4 * x * (x / 3)
-        st.write(f"x = {x.2f} m.")
+        st.write(f"x = {x:.2f} m.")
         st.write(f"WU1 = {WU1:.2f} kN/m²")
         st.write(f"WU2 = {WU2:.2f} kN/m²")
         st.write(f"WU4 = {WU4:.2f} kN/m²")  
@@ -657,7 +657,7 @@ if B != L:
         WU2 = P_U / L - 6 * M_UZ / (L ** 2)
         WU4 = WU1 - (WU1 - WU2) * (x / L)
         MUD = 0.5 * WU1 * x * (2/3 * x) + 0.5 * WU4 * x * (x / 3)
-        st.write(f"x = {x.2f} m.")
+        st.write(f"x = {x:.2f} m.")
         st.write(f"WU1 = {WU1:.2f} kN/m²")
         st.write(f"WU2 = {WU2:.2f} kN/m²")
         st.write(f"WU4 = {WU4:.2f} kN/m²")  
@@ -697,7 +697,7 @@ if B != L:
     st.write(f"rho_min = {rho_min:.5f}")
     st.write(f"rho_des (governs) = {rho_des:.5f}")
     st.write(f"As = {As:.2f} mm²")
-    st.write(f"n = {nz.2f) along the Z-direction")
+    st.write(f"n = {nz:.2f} along the Z-direction")
 
 
     # ---------- Banding Check ----------
