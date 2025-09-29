@@ -37,7 +37,7 @@ fy_mp = st.sidebar.number_input("Yield strength of steel fy (MPa)", min_value=20
 
 d_b_mm = st.sidebar.number_input("Main bar diameter d_b (mm)", min_value=6, value=16, step=1, format="%d")
 cc_mm  = st.sidebar.number_input("Clear cover cc (mm)", min_value=5, value=50, step=1, format="%d")
-st.sidebar.write(f"*Covering: {cc_mm + d_b_mm/2} mm.")
+st.sidebar.write(f"*Covering: {cc_mm + d_b_mm/2} mm.*")
 
 P_D = st.sidebar.number_input("Dead axial load P_D (kN)", value=200.0, step=10.0, format="%.2f")
 P_L = st.sidebar.number_input("Live axial load P_L (kN)", value=100.0, step=10.0, format="%.2f")
