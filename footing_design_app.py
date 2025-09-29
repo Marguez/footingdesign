@@ -628,7 +628,7 @@ if B != L:
     st.write(f"n = {nx:.2f} along the X-direction")
 
     # Reinforcement for Z direction
-    st.write(f"*Reinforcement for Z direction*")
+    st.write(f"***Reinforcement for Z direction***")
     if CASE == 1:
         st.write(f"*Case 1 – Axial Only*")
         WU = P_U / L
