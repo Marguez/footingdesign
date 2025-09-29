@@ -12,7 +12,7 @@ import streamlit as st
 import math
 import pandas as pd
 
-st.set_page_config(page_title="Footing Design Calculator", layout="wide")
+st.set_page_config(page_title="Isolated Footing Design Calculator", layout="wide")
 st.title("Footing Design Calculator — Area, Shear & Reinforcement")
 
 # ---------------------------
@@ -20,8 +20,8 @@ st.title("Footing Design Calculator — Area, Shear & Reinforcement")
 # ---------------------------
 st.sidebar.header("Input parameters (SI units)")
 
-B = st.sidebar.number_input("Footing width B (m)", min_value=0.1, value=1.50, step=0.5, format="%.3f")
-L = st.sidebar.number_input("Footing length L (m)", min_value=0.1, value=1.50, step=0.5, format="%.3f")
+B = st.sidebar.number_input("Footing width B (m)- along x", min_value=0.1, value=1.50, step=0.5, format="%.3f")
+L = st.sidebar.number_input("Footing length L (m)- along z", min_value=0.1, value=1.50, step=0.5, format="%.3f")
 t = st.sidebar.number_input("Footing thickness t (m)", min_value=0.05, value=0.50, step=0.1, format="%.3f")
 d_f = st.sidebar.number_input("Foundation depth d_f (m)", min_value=0.0, value=0.00, step=0.1, format="%.3f")
 
@@ -93,11 +93,11 @@ if CASE == 1:
     qmax = P / (B * L)
 elif CASE == 2:
     if M_X != 0:
-        qmax = P / (B * L) + (6 * M_X) / (B * L**2)
+        qmax = P / (B * L) + (6 * M_X) / (L * B**2)
     else:
-        qmax = P / (B * L) + (6 * M_Z) / (L * B**2)
+        qmax = P / (B * L) + (6 * M_Z) / (B * L**2)
 elif CASE == 3:
-    qmax = P / (B * L) + (6 * M_X) / (B * L**2) + (6 * M_Z) / (L * B**2)
+    qmax = P / (B * L) + (6 * M_X) / (L * B**2) + (6 * M_Z) / (B * L**2)
 
 if qmax is not None:
     adequate_dims = qmax < q_e
@@ -135,7 +135,7 @@ if CASE == 3:
     # X-direction
     if M_UX >= M_UZ:
         MU = M_UX
-        st.write(f"M_UX of {M_UX:.2f} kN-m governs in X-direction.")
+        st.write(f"M_UX of {M_UX:.2f} kN-m about the X-direction.")
         WU1 = P_U / B + 6 * MU / (B ** 2)
         WU2 = P_U / B - 6 * MU / (B ** 2)
         x = (B - cx) / 2.0
@@ -161,7 +161,7 @@ if CASE == 3:
     # Z-direction
     if M_UZ > M_UX:
         MU = M_UZ
-        st.write(f"M_UZ of {M_UZ:.2f} kN-m governs in Z-direction.")
+        st.write(f"M_UZ of {M_UZ:.2f} kN-m about the Z-direction.")
         WU1 = P_U / L + 6 * MU / (L ** 2)
         WU2 = P_U / L - 6 * MU / (L ** 2)
         x = (L - cy) / 2.0
@@ -252,10 +252,10 @@ st.subheader("Two-Way Shear / Punching Shear Check")
 
 twopass = True
 if CASE == 3:
-    q1 = P_U / (B * L) + (6 * M_UX) / (B * (L ** 2)) + (6 * M_UZ) / ((B ** 2) * L)
-    q2 = P_U / (B * L) - (6 * M_UX) / (B * (L ** 2)) + (6 * M_UZ) / ((B ** 2) * L)
-    q3 = P_U / (B * L) + (6 * M_UX) / (B * (L ** 2)) - (6 * M_UZ) / ((B ** 2) * L)
-    q4 = P_U / (B * L) - (6 * M_UX) / (B * (L ** 2)) - (6 * M_UZ) / ((B ** 2) * L)
+    q1 = P_U / (B * L) + (6 * M_UX) / (L * (B ** 2)) + (6 * M_UZ) / ((L ** 2) * B)
+    q2 = P_U / (B * L) - (6 * M_UX) / (L * (B ** 2)) + (6 * M_UZ) / ((L ** 2) * B)
+    q3 = P_U / (B * L) + (6 * M_UX) / (L * (B ** 2)) - (6 * M_UZ) / ((L ** 2) * B)
+    q4 = P_U / (B * L) - (6 * M_UX) / (L * (B ** 2)) - (6 * M_UZ) / ((L ** 2) * B)
     qave = (q1 + q2 + q3 + q4) / 4.0
 
     st.write(f"q1 = {q1:.2f} kPa, q2 = {q2:.2f} kPa, q3 = {q3:.2f} kPa, q4 = {q4:.2f} kPa")
@@ -277,8 +277,8 @@ if CASE == 3:
         twopass = False
 
 elif CASE == 2:
-    q1 = P_U / (B * L) + (6 * M_UX) / (B * (L ** 2))
-    q2 = P_U / (B * L) - (6 * M_UX) / (B * (L ** 2))
+    q1 = P_U / (B * L) + (6 * M_UX) / (L * (B ** 2))
+    q2 = P_U / (B * L) - (6 * M_UX) / (L * (B ** 2))
     qave = (q1 + q2) / 2.0
 
     st.write(f"q1 = {q1:.2f} kPa, q2 = {q2:.2f} kPa, qave = {qave:.2f} kPa")
