@@ -554,7 +554,7 @@ if B==L:
 
 if B != L:
 
-    if case == 1:
+    if CASE == 1:
         st.subheader("Case 1 – Uniform Load")
 
         WU = P_U / (B * L)
@@ -611,7 +611,7 @@ if B != L:
         st.write(f"Rebars along Z = {nz} of {d_b_mm} mm bars")
 
     # ------------------ CASE 2 ------------------
-    if case == 2:
+    if CASE == 2:
         st.subheader("Case 2 – Moment Mux Only")
 
         st.write(f"M_UX = {M_UX:.3f} kN-m")
@@ -656,7 +656,7 @@ if B != L:
         st.write(f"Rebars along X = {nx} of {d_b_mm} mm bars")
 
     # ------------------ CASE 3 ------------------
-    if case == 3:
+    if CASE == 3:
 
         # ---------- X Direction ----------
         st.subheader("Case 3 – Reinforcement along the X-direction")
