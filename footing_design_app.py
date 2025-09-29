@@ -707,16 +707,16 @@ if B != L:
         nxs = math.ceil((nx-nxb)/2)*2
         nx = nxb+nxs
         nz = math.ceil(nz)
-        st.warning(f"Along long direction: Provide *{nz}–{d_b_mm} mm diameter DRB.*\n"
-                   f"Along short direction: Provide *{nx}–{d_b_mm} mm diameter DRB*, "
-                   f"*{nxb}* within the {B}-m band and *{nxs/2}* each side outside the band.")
+        st.warning(f"Along long direction: Provide **{nz}–{d_b_mm} mm diameter DRB.**\n"
+                   f"Along short direction: Provide **{nx}–{d_b_mm} mm diameter DRB**, "
+                   f"**{nxb}** within the {B}-m band and **{nxs/2}** each side outside the band.")
     elif B > L:
         nzb = math.ceil(2*nz/(B/L+1))
         nzs = math.ceil((nz-nzb)/2)*2
         nz = nzb+nzs
         nx = math.ceil(nx)
-        st.warning(f"Along long direction: Provide *{nx}–{d_b_mm} mm diameter DRB*.\n"
-                   f"Along short direction: Provide *{nz}–{d_b_mm} mm diameter DRB*, "
-                   f"*{nzb}* within the {L}-m band and *{nzs/2} each side outside the band.*")
+        st.warning(f"Along long direction: Provide **{nx}–{d_b_mm} mm diameter DRB**.\n"
+                   f"Along short direction: Provide **{nz}–{d_b_mm} mm diameter DRB**, "
+                   f"**{nzb}** within the {L}-m band and **{nzs/2}** each side outside the band.")
 
 st.write("Done — change any input on the left to see the outputs update in real time.")
