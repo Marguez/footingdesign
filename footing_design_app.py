@@ -20,30 +20,30 @@ st.title("Footing Design Calculator — Area, Shear & Reinforcement")
 # ---------------------------
 st.sidebar.header("Input parameters (SI units)")
 
-B = st.sidebar.number_input("Footing width B (m)", min_value=0.1, value=1.50, step=0.1, format="%.3f")
-L = st.sidebar.number_input("Footing length L (m)", min_value=0.1, value=1.50, step=0.1, format="%.3f")
-t = st.sidebar.number_input("Footing thickness t (m)", min_value=0.05, value=0.50, step=0.01, format="%.3f")
-d_f = st.sidebar.number_input("Foundation depth d_f (m)", min_value=0.0, value=0.00, step=0.01, format="%.3f")
+B = st.sidebar.number_input("Footing width B (m)", min_value=0.1, value=1.50, step=0.5, format="%.3f")
+L = st.sidebar.number_input("Footing length L (m)", min_value=0.1, value=1.50, step=0.5, format="%.3f")
+t = st.sidebar.number_input("Footing thickness t (m)", min_value=0.05, value=0.50, step=0.1, format="%.3f")
+d_f = st.sidebar.number_input("Foundation depth d_f (m)", min_value=0.0, value=0.00, step=0.1, format="%.3f")
 
-cx = st.sidebar.number_input("Column width cx (m)", value=0.30, step=0.01, format="%.3f")
-cy = st.sidebar.number_input("Column length cy (m)", value=0.30, step=0.01, format="%.3f")
+cx = st.sidebar.number_input("Column width cx (m)", value=0.30, step=0.1, format="%.3f")
+cy = st.sidebar.number_input("Column length cy (m)", value=0.30, step=0.1, format="%.3f")
 
-gamma_s = st.sidebar.number_input("Unit weight of soil γ_s (kN/m³)", value=18.0, step=0.1, format="%.2f")
-gamma_c = st.sidebar.number_input("Unit weight of concrete γ_c (kN/m³)", value=24.0, step=0.1, format="%.2f")
-q_a = st.sidebar.number_input("Allowable soil pressure q_a (kPa)", value=200.0, step=1.0, format="%.2f")
+gamma_s = st.sidebar.number_input("Unit weight of soil γ_s (kN/m³)", value=18.0, step=1, format="%.2f")
+gamma_c = st.sidebar.number_input("Unit weight of concrete γ_c (kN/m³)", value=24.0, step=0.5, format="%.2f")
+q_a = st.sidebar.number_input("Allowable soil pressure q_a (kPa)", value=200.0, step=10.0, format="%.2f")
 
 fc_mp = st.sidebar.number_input("Concrete strength fc' (MPa)", min_value=10.0, value=25.0, step=1.0, format="%.2f")
-fy_mp = st.sidebar.number_input("Yield strength of steel fy (MPa)", min_value=200.0, value=420.0, step=10.0, format="%.2f")
+fy_mp = st.sidebar.number_input("Yield strength of steel fy (MPa)", min_value=200.0, value=420.0, step=100.0, format="%.2f")
 
 d_b_mm = st.sidebar.number_input("Main bar diameter d_b (mm)", min_value=6, value=16, step=1, format="%d")
 cc_mm  = st.sidebar.number_input("Clear cover cc (mm)", min_value=5, value=50, step=1, format="%d")
 
-P_D = st.sidebar.number_input("Dead axial load P_D (kN)", value=200.0, step=1.0, format="%.2f")
-P_L = st.sidebar.number_input("Live axial load P_L (kN)", value=100.0, step=1.0, format="%.2f")
-M_DX = st.sidebar.number_input("Dead moment about X M_DX (kN-m)", value=10.0, step=0.1, format="%.2f")
-M_LX = st.sidebar.number_input("Live moment about X M_LX (kN-m)", value=5.0, step=0.1, format="%.2f")
-M_DZ = st.sidebar.number_input("Dead moment about Z M_DZ (kN-m)", value=8.0, step=0.1, format="%.2f")
-M_LZ = st.sidebar.number_input("Live moment about Z M_LZ (kN-m)", value=4.0, step=0.1, format="%.2f")
+P_D = st.sidebar.number_input("Dead axial load P_D (kN)", value=200.0, step=10, format="%.2f")
+P_L = st.sidebar.number_input("Live axial load P_L (kN)", value=100.0, step=10, format="%.2f")
+M_DX = st.sidebar.number_input("Dead moment about X M_DX (kN-m)", value=0, step=0.10, format="%.2f")
+M_LX = st.sidebar.number_input("Live moment about X M_LX (kN-m)", value=0, step=0.10, format="%.2f")
+M_DZ = st.sidebar.number_input("Dead moment about Z M_DZ (kN-m)", value=0, step=0.10, format="%.2f")
+M_LZ = st.sidebar.number_input("Live moment about Z M_LZ (kN-m)", value=0, step=0.10, format="%.2f")
 
 # quick derived conversions
 cc_m = cc_mm / 1000.0
