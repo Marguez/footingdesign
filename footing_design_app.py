@@ -641,8 +641,8 @@ if B != L:
     if CASE == 2:
         st.write(f"*Case 2 – Axial and Moment about X Direction Only*")
         x = (L - cy) / 2
-        WU1 = P_U / B + 6 * M_UZ / (L ** 2)
-        WU2 = P_U / B - 6 * M_UZ / (L ** 2)
+        WU1 = P_U / L + 6 * M_UZ / (L ** 2)
+        WU2 = P_U / L - 6 * M_UZ / (L ** 2)
         WU4 = WU1 - (WU1 - WU2) * (x / L)
         MUD = 0.5 * WU1 * x * (2/3 * x) + 0.5 * WU4 * x * (x / 3)
         st.write(f"x = {x:.2f} m.")
