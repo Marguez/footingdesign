@@ -42,10 +42,10 @@ st.sidebar.write(f"*Covering: {cc_mm + d_b_mm/2} mm.*")
 P_D = st.sidebar.number_input("Dead axial load P_D (kN)", value=200.0, step=10.0, format="%.2f")
 P_L = st.sidebar.number_input("Live axial load P_L (kN)", value=100.0, step=10.0, format="%.2f")
 st.sidebar.caption("If adding moment about one direction only, use MX and let MZ=0.")
-M_DX = st.sidebar.number_input("Dead moment about X M_DX (kN-m)", value=0.0, step=0.10, format="%.2f")
-M_LX = st.sidebar.number_input("Live moment about X M_LX (kN-m)", value=0.0, step=0.10, format="%.2f")
-M_DZ = st.sidebar.number_input("Dead moment about Z M_DZ (kN-m)", value=0.0, step=0.10, format="%.2f")
-M_LZ = st.sidebar.number_input("Live moment about Z M_LZ (kN-m)", value=0.0, step=0.10, format="%.2f")
+M_DX = st.sidebar.number_input("Dead moment about X M_DX (kN-m)", value=0.0, step=5.00, format="%.2f")
+M_LX = st.sidebar.number_input("Live moment about X M_LX (kN-m)", value=0.0, step=5.00, format="%.2f")
+M_DZ = st.sidebar.number_input("Dead moment about Z M_DZ (kN-m)", value=0.0, step=5.00, format="%.2f")
+M_LZ = st.sidebar.number_input("Live moment about Z M_LZ (kN-m)", value=0.0, step=5.00, format="%.2f")
 
 # quick derived conversions
 cc_m = cc_mm / 1000.0
