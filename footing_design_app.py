@@ -110,25 +110,6 @@ if qmax is not None:
         st.error(f"Since q_max ({qmax:.2f} kPa) ≥ q_e ({q_e:.2f} kPa), footing dimensions are INADEQUATE. Increase dimensions.")
         st.stop()
 
-import numpy as np
-X, Y = np.meshgrid(np.linspace(-B/2, B/2, 50),
-                   np.linspace(-L/2, L/2, 50))
-
-q = P/(B*L) + (6*M_X/(B*L**2))*X + (6*M_Z/(L*B**2))*Y
-
-import matplotlib.pyplot as plt
-
-fig, ax = plt.subplots()
-cs = ax.contourf(X, Y, q, cmap="coolwarm", levels=20)
-fig.colorbar(cs, ax=ax, label="Soil Pressure (kPa)")
-ax.set_aspect("equal")
-ax.set_title("Soil Pressure Distribution")
-ax.set_xlabel("Width B (m)")
-ax.set_ylabel("Length L (m)")
-
-st.pyplot(fig)
-
-
 # ---------------------------
 # Thickness (One-way shear) checks
 # ---------------------------
