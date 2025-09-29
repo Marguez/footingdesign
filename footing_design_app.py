@@ -352,10 +352,10 @@ if B==L:
             st.write(f"MUT = {MUT:.2f} kN-m")
     
             if MUT > MUD:
-                st.success("Since MUT > MUD, tension-controlled (phi = 0.9)")
+                st.write(f"*Since MUT > MUD, tension-controlled (phi = 0.9)*")
                 phi = 0.9
             else:
-                st.warning("Since MUT <= MUD, transition region (phi = assumed 0.75)")
+                st.write(f"*Since MUT <= MUD, transition region (phi = assumed 0.75)*")
                 phi = 0.75
     
             Rn = round(MUD * 1e6 / (phi * L * d**2 * 1e9), 3)
@@ -401,10 +401,10 @@ if B==L:
             st.write(f"MUT = {MUT:.2f} kN-m")
     
             if MUT > MUD:
-                st.success("Since MUT > MUD, tension-controlled (phi = 0.9)")
+                st.write(f"*Since MUT > MUD, tension-controlled (phi = 0.9)*")
                 phi = 0.9
             else:
-                st.warning("Since MUT <= MUD, transition region (phi = assumed 0.75)")
+                st.write(f"*Since MUT <= MUD, transition region (phi = assumed 0.75)*")
                 phi = 0.75
     
             Rn = round(MUD * 1e6 / (phi * B * d**2 * 1e9), 3)
@@ -448,10 +448,10 @@ if B==L:
         st.write(f"MUT = {MUT:.2f} kN-m")
     
         if MUT > MUD:
-            st.success("Since MUT > MUD, tension-controlled (phi = 0.9)")
+            st.write(f"*Since MUT > MUD, tension-controlled (phi = 0.9)*")
             phi = 0.9
         else:
-            st.warning("Since MUT <= MUD, transition region (phi = assumed 0.75)")
+            st.write(f"*Since MUT <= MUD, transition region (phi = assumed 0.75)*")
             phi = 0.75
     
         Rn = round(MUD * 1e6 / (phi * L * d**2 * 1e9), 3)
@@ -488,10 +488,10 @@ if B==L:
             MUT = 0.9 * (51/160) * fc_mp * L * 1000 * beta * d**2 * (1 - 3*beta/16)
             st.write(f"MUD = {MUD:.2f} kN-m, MUT = {MUT:.2f} kN-m")
             if MUT > MUD:
-                st.success("Since MUT > MUD, tension-controlled (phi = 0.9)")
+                st.write(f"*Since MUT > MUD, tension-controlled (phi = 0.9)*")
                 phi = 0.9
             else:
-                st.warning("Since MUT <= MUD, transition region (phi = assumed 0.75)")
+                st.write(f"*"Since MUT <= MUD, transition region (phi = assumed 0.75)*")
                 phi = 0.75
     
             Rn = round(MUD * 1e6 / (phi * L * d**2 * 1e9), 3)
@@ -526,10 +526,10 @@ if B==L:
             MUT = 0.9 * (51/160) * fc_mp * B * 1000 * beta * d**2 * (1 - 3*beta/16)
             st.write(f"MUD = {MUD:.2f} kN-m, MUT = {MUT:.2f} kN-m")
             if MUT > MUD:
-                st.success("Since MUT > MUD, tension-controlled (phi = 0.9)")
+                st.write(f"*Since MUT > MUD, tension-controlled (phi = 0.9)*")
                 phi = 0.9
             else:
-                st.warning("Since MUT <= MUD, transition region (phi = assumed 0.75)")
+                st.write(f"*Since MUT <= MUD, transition region (phi = assumed 0.75)*")
                 phi = 0.75
     
             Rn = round(MUD * 1e6 / (phi * B * d**2 * 1e9), 3)
@@ -555,9 +555,9 @@ if B==L:
 if B != L:
 
     # Reinforcement for X direction
-    st.write(f"*Reinforcement for X direction*")
+    st.write(f"***Reinforcement for X direction***")
     if CASE == 1:
-        st.subheader("Case 1 – Axial Only")
+       st.write(f"*Case 1 – Axial Only*")
         WU = P_U / B
         x = (B - cx) / 2
         MUD = 0.5 * WU * x**2
@@ -566,7 +566,7 @@ if B != L:
         st.write(f"MUD = {MUD:.2f} kN-m")
 
     if CASE == 2:
-        st.subheader("Case 2 – Axial and Moment about X Direction Only")
+        st.write(f"*Case 2 – Axial and Moment about X Direction Only*")
         x = (B - cx) / 2
         WU1 = P_U / B + 6 * M_UX / (B ** 2)
         WU2 = P_U / B - 6 * M_UX / (B ** 2)
@@ -579,7 +579,7 @@ if B != L:
         st.write(f"MUD = {MUD:.2f} kN-m")
 
     if CASE == 3:
-        st.subheader("Case 3 – Axial and Moment about X and Z Direction")
+        st.write(f"*Case 3 – Axial and Moment about X and Z Direction*")
         x = (B - cx) / 2
         WU1 = P_U / B + 6 * M_UX / (B ** 2)
         WU2 = P_U / B - 6 * M_UX / (B ** 2)
@@ -603,10 +603,10 @@ if B != L:
     st.write(f"MUTx = {MUTx:.2f} kN-m")
 
     if MUTx > MUD:
-        st.success("Since MUT > MUD, tension-controlled (phi = 0.9)")
+        st.write(f"*Since MUT > MUD, tension-controlled (phi = 0.9)*")
         phi = 0.9
     else:
-        st.warning("Since MUT <= MUD, transition region (phi = assumed 0.75)")
+        st.write(f"*Since MUT <= MUD, transition region (phi = assumed 0.75)*")
         phi = 0.75
 
     Rn = round(MUD * 1e6 / (phi * L * d**2 * 1e9), 3)
@@ -676,10 +676,10 @@ if B != L:
     st.write(f"MUTz = {MUTz:.2f} kN-m")
 
     if MUTz > MUD:
-        st.success("Since MUT > MUD, tension-controlled (phi = 0.9)")
+        st.write(f"*Since MUT > MUD, tension-controlled (phi = 0.9)*")
         phi = 0.9
     else:
-        st.warning("Since MUT <= MUD, transition region (phi = assumed 0.75)")
+        st.write(f"*Since MUT <= MUD, transition region (phi = assumed 0.75)*")
         phi = 0.75
 
     Rn = round(MUD * 1e6 / (phi * B * d**2 * 1e9), 3)
