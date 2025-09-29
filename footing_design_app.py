@@ -28,7 +28,7 @@ d_f = st.sidebar.number_input("Foundation depth d_f (m)", min_value=0.0, value=0
 cx = st.sidebar.number_input("Column width cx (m)", value=0.30, step=0.1, format="%.3f")
 cy = st.sidebar.number_input("Column length cy (m)", value=0.30, step=0.1, format="%.3f")
 
-gamma_s = st.sidebar.number_input("Unit weight of soil γ_s (kN/m³)", value=18.0, step=1, format="%.2f")
+gamma_s = st.sidebar.number_input("Unit weight of soil γ_s (kN/m³)", value=18.0, step=1.0, format="%.2f")
 gamma_c = st.sidebar.number_input("Unit weight of concrete γ_c (kN/m³)", value=24.0, step=0.5, format="%.2f")
 q_a = st.sidebar.number_input("Allowable soil pressure q_a (kPa)", value=200.0, step=10.0, format="%.2f")
 
