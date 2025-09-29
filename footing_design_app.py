@@ -328,10 +328,294 @@ except NameError:
     x = (B - cx) / 2.0
 
 # proceed casewise
-if CASE == 3:
-    if M_UX > M_UZ:
-        st.write(f"M_UX of {M_UX:.2f} kN-m governs.")
-        # WU1 and WU2 from earlier in X-direction should be available; if not compute:
+if B==L:    
+    if CASE == 3:
+        if M_UX > M_UZ:
+            st.write(f"M_UX of {M_UX:.2f} kN-m governs.")
+            # WU1 and WU2 from earlier in X-direction should be available; if not compute:
+            WU1 = P_U / B + 6 * M_UX / (B ** 2)
+            WU2 = P_U / B - 6 * M_UX / (B ** 2)
+            WU4 = WU1 - (WU1 - WU2) * (x / B)
+            MUD = 0.5 * WU1 * x * (2/3 * x) + 0.5 * WU4 * x * (x / 3)
+    
+            if fc_mp <= 28:
+                beta = 0.85
+            elif fc_mp < 55:
+                beta = 0.85 - 0.05/7 * (fc_mp - 28)
+            else:
+                beta = 0.65
+    
+            MUT = 0.9 * (51/160) * fc_mp * L * 1000 * beta * d**2 * (1 - 3*beta/16)
+    
+            st.write(f"WU4 = {WU4:.2f} kN/m")
+            st.write(f"MUD = {MUD:.2f} kN-m")
+            st.write(f"MUT = {MUT:.2f} kN-m")
+    
+            if MUT > MUD:
+                st.success("Since MUT > MUD, tension-controlled (phi = 0.9)")
+                phi = 0.9
+            else:
+                st.warning("Since MUT <= MUD, transition region (phi = assumed 0.75)")
+                phi = 0.75
+    
+            Rn = round(MUD * 1e6 / (phi * L * d**2 * 1e9), 3)
+            # protect negative / domain error in sqrt
+            tmp = 1 - 2*Rn/(0.85*fc_mp)
+            rho_actual = 0.0
+            if tmp >= 0:
+                rho_actual = round(0.85 * fc_mp / fy_mp * (1 - math.sqrt(tmp)), 5)
+            else:
+                rho_actual = 0.0
+            rho_min = round(max(1.4/fy_mp, 0.25 * math.sqrt(fc_mp) / fy_mp), 5)
+            rho_des = max(rho_actual, rho_min)
+    
+            st.write(f"Rn = {Rn:.3f}")
+            st.write(f"rho_actual = {rho_actual:.5f}")
+            st.write(f"rho_min = {rho_min:.5f}")
+            st.write(f"rho_des (governs) = {rho_des:.5f}")
+    
+            As = rho_des * L * d * 1e6  # mm2
+            n = math.ceil(As * 4 / (math.pi * d_b_mm**2))
+    
+            st.write(f"As = {As:.2f} mm²")
+            st.warning(f"Provide {n}–{d_b_mm} mm diameter DRB both ways.")
+    
+        elif M_UZ > M_UX:
+            st.write(f"M_UZ of {M_UZ:.2f} kN-m governs.")
+            WU1 = P_U / L + 6 * M_UZ / (L ** 2)
+            WU2 = P_U / L - 6 * M_UZ / (L ** 2)
+            WU4 = WU1 - (WU1 - WU2) * (x / L)
+            MUD = 0.5 * WU1 * x * (2/3 * x) + 0.5 * WU4 * x * (x / 3)
+    
+            if fc_mp <= 28:
+                beta = 0.85
+            elif fc_mp < 55:
+                beta = 0.85 - 0.05/7 * (fc_mp - 28)
+            else:
+                beta = 0.65
+    
+            MUT = 0.9 * (51/160) * fc_mp * B * 1000 * beta * d**2 * (1 - 3*beta/16)
+    
+            st.write(f"WU4 = {WU4:.2f} kN/m")
+            st.write(f"MUD = {MUD:.2f} kN-m")
+            st.write(f"MUT = {MUT:.2f} kN-m")
+    
+            if MUT > MUD:
+                st.success("Since MUT > MUD, tension-controlled (phi = 0.9)")
+                phi = 0.9
+            else:
+                st.warning("Since MUT <= MUD, transition region (phi = assumed 0.75)")
+                phi = 0.75
+    
+            Rn = round(MUD * 1e6 / (phi * B * d**2 * 1e9), 3)
+            tmp = 1 - 2*Rn/(0.85*fc_mp)
+            rho_actual = 0.0
+            if tmp >= 0:
+                rho_actual = round(0.85 * fc_mp / fy_mp * (1 - math.sqrt(tmp)), 5)
+            else:
+                rho_actual = 0.0
+            rho_min = round(max(1.4/fy_mp, 0.25 * math.sqrt(fc_mp) / fy_mp), 5)
+            rho_des = max(rho_actual, rho_min)
+    
+            st.write(f"Rn = {Rn:.3f}")
+            st.write(f"rho_actual = {rho_actual:.5f}")
+            st.write(f"rho_min = {rho_min:.5f}")
+            st.write(f"rho_des (governs) = {rho_des:.5f}")
+    
+            As = rho_des * L * d * 1e6  # mm2
+            n = math.ceil(As * 4 / (math.pi * d_b_mm**2))
+            st.write(f"As = {As:.2f} mm²")
+            st.warning(f"Provide {n}–{d_b_mm} mm diameter DRB both ways.")
+    
+    elif CASE == 2:
+        st.write(f"CASE = 2: M_UX governs (M_UX = {M_UX:.2f} kN-m).")
+        WU1 = P_U / B + 6 * M_UX / (B ** 2)
+        WU2 = P_U / B - 6 * M_UX / (B ** 2)
+        WU4 = WU1 - (WU1 - WU2) * (x / B)
+        MUD = 0.5 * WU1 * x * (2/3 * x) + 0.5 * WU4 * x * (x / 3)
+    
+        if fc_mp <= 28:
+            beta = 0.85
+        elif fc_mp < 55:
+            beta = 0.85 - 0.05/7 * (fc_mp - 28)
+        else:
+            beta = 0.65
+    
+        MUT = 0.9 * (51/160) * fc_mp * L * 1000 * beta * d**2 * (1 - 3*beta/16)
+    
+        st.write(f"WU4 = {WU4:.2f} kN/m")
+        st.write(f"MUD = {MUD:.2f} kN-m")
+        st.write(f"MUT = {MUT:.2f} kN-m")
+    
+        if MUT > MUD:
+            st.success("Since MUT > MUD, tension-controlled (phi = 0.9)")
+            phi = 0.9
+        else:
+            st.warning("Since MUT <= MUD, transition region (phi = assumed 0.75)")
+            phi = 0.75
+    
+        Rn = round(MUD * 1e6 / (phi * L * d**2 * 1e9), 3)
+        tmp = 1 - 2*Rn/(0.85*fc_mp)
+        rho_actual = 0.0
+        if tmp >= 0:
+            rho_actual = round(0.85 * fc_mp / fy_mp * (1 - math.sqrt(tmp)), 5)
+        else:
+            rho_actual = 0.0
+        rho_min = round(max(1.4/fy_mp, 0.25 * math.sqrt(fc_mp) / fy_mp), 5)
+        rho_des = max(rho_actual, rho_min)
+    
+        st.write(f"Rn = {Rn:.3f}")
+        st.write(f"rho_actual = {rho_actual:.5f}")
+        st.write(f"rho_min = {rho_min:.5f}")
+        st.write(f"rho_des (governs) = {rho_des:.5f}")
+    
+        As = rho_des * L * d * 1e6  # mm2
+        n = math.ceil(As * 4 / (math.pi * d_b_mm**2))
+        st.write(f"As = {As:.2f} mm²")
+        st.warning(f"Provide {n}–{d_b_mm} mm diameter DRB both ways.")
+    
+    elif CASE == 1:
+        if B > L:
+            st.write("CASE = 1, B > L: flexural check across B.")
+            MUD = 0.5 * WU * x**2
+            if fc_mp <= 28:
+                beta = 0.85
+            elif fc_mp < 55:
+                beta = 0.85 - 0.05/7 * (fc_mp - 28)
+            else:
+                beta = 0.65
+    
+            MUT = 0.9 * (51/160) * fc_mp * L * 1000 * beta * d**2 * (1 - 3*beta/16)
+            st.write(f"MUD = {MUD:.2f} kN-m, MUT = {MUT:.2f} kN-m")
+            if MUT > MUD:
+                st.success("Since MUT > MUD, tension-controlled (phi = 0.9)")
+                phi = 0.9
+            else:
+                st.warning("Since MUT <= MUD, transition region (phi = assumed 0.75)")
+                phi = 0.75
+    
+            Rn = round(MUD * 1e6 / (phi * L * d**2 * 1e9), 3)
+            tmp = 1 - 2*Rn/(0.85*fc_mp)
+            rho_actual = 0.0
+            if tmp >= 0:
+                rho_actual = round(0.85 * fc_mp / fy_mp * (1 - math.sqrt(tmp)), 5)
+            else:
+                rho_actual = 0.0
+            rho_min = round(max(1.4/fy_mp, 0.25 * math.sqrt(fc_mp) / fy_mp), 5)
+            rho_des = max(rho_actual, rho_min)
+    
+            st.write(f"Rn = {Rn:.3f}")
+            st.write(f"rho_actual = {rho_actual:.5f}")
+            st.write(f"rho_min = {rho_min:.5f}")
+            st.write(f"rho_des (governs) = {rho_des:.5f}")
+    
+            As = rho_des * L * d * 1e6  # mm2
+            n = math.ceil(As * 4 / (math.pi * d_b_mm**2))
+            st.write(f"As = {As:.2f} mm²")
+            st.warning(f"Provide {n}–{d_b_mm} mm diameter DRB both ways.")
+        else:
+            st.write("CASE = 1, L >= B: flexural check across L.")
+            MUD = 0.5 * WU * x**2
+            if fc_mp <= 28:
+                beta = 0.85
+            elif fc_mp < 55:
+                beta = 0.85 - 0.05/7 * (fc_mp - 28)
+            else:
+                beta = 0.65
+    
+            MUT = 0.9 * (51/160) * fc_mp * B * 1000 * beta * d**2 * (1 - 3*beta/16)
+            st.write(f"MUD = {MUD:.2f} kN-m, MUT = {MUT:.2f} kN-m")
+            if MUT > MUD:
+                st.success("Since MUT > MUD, tension-controlled (phi = 0.9)")
+                phi = 0.9
+            else:
+                st.warning("Since MUT <= MUD, transition region (phi = assumed 0.75)")
+                phi = 0.75
+    
+            Rn = round(MUD * 1e6 / (phi * B * d**2 * 1e9), 3)
+            tmp = 1 - 2*Rn/(0.85*fc_mp)
+            rho_actual = 0.0
+            if tmp >= 0:
+                rho_actual = round(0.85 * fc_mp / fy_mp * (1 - math.sqrt(tmp)), 5)
+            else:
+                rho_actual = 0.0
+            rho_min = round(max(1.4/fy_mp, 0.25 * math.sqrt(fc_mp) / fy_mp), 5)
+            rho_des = max(rho_actual, rho_min)
+    
+            st.write(f"Rn = {Rn:.3f}")
+            st.write(f"rho_actual = {rho_actual:.5f}")
+            st.write(f"rho_min = {rho_min:.5f}")
+            st.write(f"rho_des (governs) = {rho_des:.5f}")
+    
+            As = rho_des * B * d * 1e6  # mm2
+            n = math.ceil(As * 4 / (math.pi * d_b_mm**2))
+            st.write(f"As = {As:.2f} mm²")
+            st.warning(f"Provide {n}–{d_b_mm} mm diameter DRB both ways.")
+
+if B != L:
+
+    if case == 1:
+        st.subheader("Case 1 – Uniform Load")
+
+        WU = P_U / (B * L)
+        MUX = WU * (L**2) * B / 8
+        MUZ = WU * (B**2) * L / 8
+
+        st.write(f"WU = {WU:.2f} kN/m²")
+        st.write(f"MUX = {MUX:.2f} kN-m")
+        st.write(f"MUZ = {MUZ:.2f} kN-m")
+
+        if fc_mp <= 28:
+            beta = 0.85
+        elif fc_mp < 55:
+            beta = 0.85 - 0.05/7 * (fc_mp - 28)
+        else:
+            beta = 0.65
+
+        MUTx = 0.9 * (51/160) * fc_mp * L * 1000 * beta * d**2 * (1 - 3*beta/16)
+        MUTz = 0.9 * (51/160) * fc_mp * B * 1000 * beta * d**2 * (1 - 3*beta/16)
+
+        st.write(f"MUTx = {MUTx:.2f} kN-m")
+        st.write(f"MUTz = {MUTz:.2f} kN-m")
+
+        # Reinforcement for X direction
+        phi = 0.9 if MUTx > MUX else 0.75
+        Rn = round(MUX * 1e6 / (phi * L * d**2 * 1e9), 3)
+        tmp = 1 - 2*Rn/(0.85*fc_mp)
+        rho_actual = 0.0
+        if tmp >= 0:
+            rho_actual = round(0.85 * fc_mp / fy_mp * (1 - math.sqrt(tmp)), 5)
+        rho_min = round(max(1.4/fy_mp, 0.25 * math.sqrt(fc_mp) / fy_mp), 5)
+        rho_des = max(rho_actual, rho_min)
+        As = rho_des * L * d * 1e6
+        nx = math.ceil(As * 4 / (math.pi * d_b_mm**2))
+        if nx % 2 != 0:
+            nx += 1
+
+        st.write(f"Rebars along X = {nx} of {d_b_mm} mm bars")
+
+        # Reinforcement for Z direction
+        phi = 0.9 if MUTz > MUZ else 0.75
+        Rn = round(MUZ * 1e6 / (phi * B * d**2 * 1e9), 3)
+        tmp = 1 - 2*Rn/(0.85*fc_mp)
+        rho_actual = 0.0
+        if tmp >= 0:
+            rho_actual = round(0.85 * fc_mp / fy_mp * (1 - math.sqrt(tmp)), 5)
+        rho_min = round(max(1.4/fy_mp, 0.25 * math.sqrt(fc_mp) / fy_mp), 5)
+        rho_des = max(rho_actual, rho_min)
+        As = rho_des * B * d * 1e6
+        nz = math.ceil(As * 4 / (math.pi * d_b_mm**2))
+        if nz % 2 != 0:
+            nz += 1
+
+        st.write(f"Rebars along Z = {nz} of {d_b_mm} mm bars")
+
+    # ------------------ CASE 2 ------------------
+    if case == 2:
+        st.subheader("Case 2 – Moment Mux Only")
+
+        st.write(f"M_UX = {M_UX:.3f} kN-m")
+
         WU1 = P_U / B + 6 * M_UX / (B ** 2)
         WU2 = P_U / B - 6 * M_UX / (B ** 2)
         WU4 = WU1 - (WU1 - WU2) * (x / B)
@@ -351,36 +635,70 @@ if CASE == 3:
         st.write(f"MUT = {MUT:.2f} kN-m")
 
         if MUT > MUD:
-            st.success("Since MUT > MUD, tension-controlled (phi = 0.9)")
+            st.success("Tension-controlled (phi = 0.9)")
             phi = 0.9
         else:
-            st.warning("Since MUT <= MUD, transition region (phi = assumed 0.75)")
+            st.warning("Transition (phi = 0.75)")
             phi = 0.75
 
         Rn = round(MUD * 1e6 / (phi * L * d**2 * 1e9), 3)
-        # protect negative / domain error in sqrt
         tmp = 1 - 2*Rn/(0.85*fc_mp)
         rho_actual = 0.0
         if tmp >= 0:
             rho_actual = round(0.85 * fc_mp / fy_mp * (1 - math.sqrt(tmp)), 5)
-        else:
-            rho_actual = 0.0
         rho_min = round(max(1.4/fy_mp, 0.25 * math.sqrt(fc_mp) / fy_mp), 5)
         rho_des = max(rho_actual, rho_min)
+        As = rho_des * L * d * 1e6
+        nx = math.ceil(As * 4 / (math.pi * d_b_mm**2))
+        if nx % 2 != 0:
+            nx += 1
 
-        st.write(f"Rn = {Rn:.3f}")
-        st.write(f"rho_actual = {rho_actual:.5f}")
-        st.write(f"rho_min = {rho_min:.5f}")
-        st.write(f"rho_des (governs) = {rho_des:.5f}")
+        st.write(f"Rebars along X = {nx} of {d_b_mm} mm bars")
 
-        As = rho_des * L * d * 1e6  # mm2
-        n = math.ceil(As * 4 / (math.pi * d_b_mm**2))
+    # ------------------ CASE 3 ------------------
+    if case == 3:
 
-        st.write(f"As = {As:.2f} mm²")
-        st.warning(f"Provide {n}–{d_b_mm} mm diameter DRB both ways.")
+        # ---------- X Direction ----------
+        st.subheader("Case 3 – Reinforcement along the X-direction")
+        st.write(f"M_UX = {M_UX:.3f} kN-m")
 
-    elif M_UZ > M_UX:
-        st.write(f"M_UZ of {M_UZ:.2f} kN-m governs.")
+        WU1 = P_U / B + 6 * M_UX / (B ** 2)
+        WU2 = P_U / B - 6 * M_UX / (B ** 2)
+        WU4 = WU1 - (WU1 - WU2) * (x / B)
+        MUD = 0.5 * WU1 * x * (2/3 * x) + 0.5 * WU4 * x * (x / 3)
+
+        if fc_mp <= 28:
+            beta = 0.85
+        elif fc_mp < 55:
+            beta = 0.85 - 0.05/7 * (fc_mp - 28)
+        else:
+            beta = 0.65
+
+        MUT = 0.9 * (51/160) * fc_mp * L * 1000 * beta * d**2 * (1 - 3*beta/16)
+
+        if MUT > MUD:
+            phi = 0.9
+        else:
+            phi = 0.75
+
+        Rn = round(MUD * 1e6 / (phi * L * d**2 * 1e9), 3)
+        tmp = 1 - 2*Rn/(0.85*fc_mp)
+        rho_actual = 0.0
+        if tmp >= 0:
+            rho_actual = round(0.85 * fc_mp / fy_mp * (1 - math.sqrt(tmp)), 5)
+        rho_min = round(max(1.4/fy_mp, 0.25 * math.sqrt(fc_mp) / fy_mp), 5)
+        rho_des = max(rho_actual, rho_min)
+        As = rho_des * L * d * 1e6
+        nx = math.ceil(As * 4 / (math.pi * d_b_mm**2))
+        if nx % 2 != 0:
+            nx += 1
+
+        st.write(f"Rebars along X = {nx} of {d_b_mm} mm bars")
+
+        # ---------- Z Direction ----------
+        st.subheader("Reinforcement along the Z-direction")
+        st.write(f"M_UZ = {M_UZ:.3f} kN-m")
+
         WU1 = P_U / L + 6 * M_UZ / (L ** 2)
         WU2 = P_U / L - 6 * M_UZ / (L ** 2)
         WU4 = WU1 - (WU1 - WU2) * (x / L)
@@ -395,15 +713,9 @@ if CASE == 3:
 
         MUT = 0.9 * (51/160) * fc_mp * B * 1000 * beta * d**2 * (1 - 3*beta/16)
 
-        st.write(f"WU4 = {WU4:.2f} kN/m")
-        st.write(f"MUD = {MUD:.2f} kN-m")
-        st.write(f"MUT = {MUT:.2f} kN-m")
-
         if MUT > MUD:
-            st.success("Since MUT > MUD, tension-controlled (phi = 0.9)")
             phi = 0.9
         else:
-            st.warning("Since MUT <= MUD, transition region (phi = assumed 0.75)")
             phi = 0.75
 
         Rn = round(MUD * 1e6 / (phi * B * d**2 * 1e9), 3)
@@ -411,145 +723,30 @@ if CASE == 3:
         rho_actual = 0.0
         if tmp >= 0:
             rho_actual = round(0.85 * fc_mp / fy_mp * (1 - math.sqrt(tmp)), 5)
-        else:
-            rho_actual = 0.0
         rho_min = round(max(1.4/fy_mp, 0.25 * math.sqrt(fc_mp) / fy_mp), 5)
         rho_des = max(rho_actual, rho_min)
+        As = rho_des * B * d * 1e6
+        nz = math.ceil(As * 4 / (math.pi * d_b_mm**2))
+        if nz % 2 != 0:
+            nz += 1
 
-        st.write(f"Rn = {Rn:.3f}")
-        st.write(f"rho_actual = {rho_actual:.5f}")
-        st.write(f"rho_min = {rho_min:.5f}")
-        st.write(f"rho_des (governs) = {rho_des:.5f}")
+        st.write(f"Rebars along Z = {nz} of {d_b_mm} mm bars")
 
-        As = rho_des * L * d * 1e6  # mm2
-        n = math.ceil(As * 4 / (math.pi * d_b_mm**2))
-        st.write(f"As = {As:.2f} mm²")
-        st.warning(f"Provide {n}–{d_b_mm} mm diameter DRB both ways.")
-
-elif CASE == 2:
-    st.write(f"CASE = 2: M_UX governs (M_UX = {M_UX:.2f} kN-m).")
-    WU1 = P_U / B + 6 * M_UX / (B ** 2)
-    WU2 = P_U / B - 6 * M_UX / (B ** 2)
-    WU4 = WU1 - (WU1 - WU2) * (x / B)
-    MUD = 0.5 * WU1 * x * (2/3 * x) + 0.5 * WU4 * x * (x / 3)
-
-    if fc_mp <= 28:
-        beta = 0.85
-    elif fc_mp < 55:
-        beta = 0.85 - 0.05/7 * (fc_mp - 28)
-    else:
-        beta = 0.65
-
-    MUT = 0.9 * (51/160) * fc_mp * L * 1000 * beta * d**2 * (1 - 3*beta/16)
-
-    st.write(f"WU4 = {WU4:.2f} kN/m")
-    st.write(f"MUD = {MUD:.2f} kN-m")
-    st.write(f"MUT = {MUT:.2f} kN-m")
-
-    if MUT > MUD:
-        st.success("Since MUT > MUD, tension-controlled (phi = 0.9)")
-        phi = 0.9
-    else:
-        st.warning("Since MUT <= MUD, transition region (phi = assumed 0.75)")
-        phi = 0.75
-
-    Rn = round(MUD * 1e6 / (phi * L * d**2 * 1e9), 3)
-    tmp = 1 - 2*Rn/(0.85*fc_mp)
-    rho_actual = 0.0
-    if tmp >= 0:
-        rho_actual = round(0.85 * fc_mp / fy_mp * (1 - math.sqrt(tmp)), 5)
-    else:
-        rho_actual = 0.0
-    rho_min = round(max(1.4/fy_mp, 0.25 * math.sqrt(fc_mp) / fy_mp), 5)
-    rho_des = max(rho_actual, rho_min)
-
-    st.write(f"Rn = {Rn:.3f}")
-    st.write(f"rho_actual = {rho_actual:.5f}")
-    st.write(f"rho_min = {rho_min:.5f}")
-    st.write(f"rho_des (governs) = {rho_des:.5f}")
-
-    As = rho_des * L * d * 1e6  # mm2
-    n = math.ceil(As * 4 / (math.pi * d_b_mm**2))
-    st.write(f"As = {As:.2f} mm²")
-    st.warning(f"Provide {n}–{d_b_mm} mm diameter DRB both ways.")
-
-elif CASE == 1:
-    if B > L:
-        st.write("CASE = 1, B > L: flexural check across B.")
-        MUD = 0.5 * WU * x**2
-        if fc_mp <= 28:
-            beta = 0.85
-        elif fc_mp < 55:
-            beta = 0.85 - 0.05/7 * (fc_mp - 28)
-        else:
-            beta = 0.65
-
-        MUT = 0.9 * (51/160) * fc_mp * L * 1000 * beta * d**2 * (1 - 3*beta/16)
-        st.write(f"MUD = {MUD:.2f} kN-m, MUT = {MUT:.2f} kN-m")
-        if MUT > MUD:
-            st.success("Since MUT > MUD, tension-controlled (phi = 0.9)")
-            phi = 0.9
-        else:
-            st.warning("Since MUT <= MUD, transition region (phi = assumed 0.75)")
-            phi = 0.75
-
-        Rn = round(MUD * 1e6 / (phi * L * d**2 * 1e9), 3)
-        tmp = 1 - 2*Rn/(0.85*fc_mp)
-        rho_actual = 0.0
-        if tmp >= 0:
-            rho_actual = round(0.85 * fc_mp / fy_mp * (1 - math.sqrt(tmp)), 5)
-        else:
-            rho_actual = 0.0
-        rho_min = round(max(1.4/fy_mp, 0.25 * math.sqrt(fc_mp) / fy_mp), 5)
-        rho_des = max(rho_actual, rho_min)
-
-        st.write(f"Rn = {Rn:.3f}")
-        st.write(f"rho_actual = {rho_actual:.5f}")
-        st.write(f"rho_min = {rho_min:.5f}")
-        st.write(f"rho_des (governs) = {rho_des:.5f}")
-
-        As = rho_des * L * d * 1e6  # mm2
-        n = math.ceil(As * 4 / (math.pi * d_b_mm**2))
-        st.write(f"As = {As:.2f} mm²")
-        st.warning(f"Provide {n}–{d_b_mm} mm diameter DRB both ways.")
-    else:
-        st.write("CASE = 1, L >= B: flexural check across L.")
-        MUD = 0.5 * WU * x**2
-        if fc_mp <= 28:
-            beta = 0.85
-        elif fc_mp < 55:
-            beta = 0.85 - 0.05/7 * (fc_mp - 28)
-        else:
-            beta = 0.65
-
-        MUT = 0.9 * (51/160) * fc_mp * B * 1000 * beta * d**2 * (1 - 3*beta/16)
-        st.write(f"MUD = {MUD:.2f} kN-m, MUT = {MUT:.2f} kN-m")
-        if MUT > MUD:
-            st.success("Since MUT > MUD, tension-controlled (phi = 0.9)")
-            phi = 0.9
-        else:
-            st.warning("Since MUT <= MUD, transition region (phi = assumed 0.75)")
-            phi = 0.75
-
-        Rn = round(MUD * 1e6 / (phi * B * d**2 * 1e9), 3)
-        tmp = 1 - 2*Rn/(0.85*fc_mp)
-        rho_actual = 0.0
-        if tmp >= 0:
-            rho_actual = round(0.85 * fc_mp / fy_mp * (1 - math.sqrt(tmp)), 5)
-        else:
-            rho_actual = 0.0
-        rho_min = round(max(1.4/fy_mp, 0.25 * math.sqrt(fc_mp) / fy_mp), 5)
-        rho_des = max(rho_actual, rho_min)
-
-        st.write(f"Rn = {Rn:.3f}")
-        st.write(f"rho_actual = {rho_actual:.5f}")
-        st.write(f"rho_min = {rho_min:.5f}")
-        st.write(f"rho_des (governs) = {rho_des:.5f}")
-
-        As = rho_des * B * d * 1e6  # mm2
-        n = math.ceil(As * 4 / (math.pi * d_b_mm**2))
-        st.write(f"As = {As:.2f} mm²")
-        st.warning(f"Provide {n}–{d_b_mm} mm diameter DRB both ways.")
+        # ---------- Banding Check ----------
+        if L > B:
+            nxb = math.ceil(2*nx/(L/B+1))
+            nx = math.ceil((math.ceil(nx)- nx)/2)*2
+            nz = math.ceil(nz)
+            st.warning(f"Along long direction: Provide {nz}–{d_b_mm} mm diameter DRB.\n"
+                       f"Along short direction: Provide {nx}–{d_b_mm} mm diameter DRB, "
+                       f"{nxb} within {B}-m band and {(nx-nxb)/2} each side outside.")
+        elif B > L:
+            nzb = math.ceil(2*nz/(B/L+1))
+            nz = math.ceil((math.ceil(nz)- nz)/2)*2
+            nx = math.ceil(nx)
+            st.warning(f"Along long direction: Provide {nx}–{d_b_mm} mm diameter DRB.\n"
+                       f"Along short direction: Provide {nz}–{d_b_mm} mm diameter DRB, "
+                       f"{nzb} within {L}-m band and {(nz-nzb)/2} each side outside.")
 
 st.markdown("## 🔎 Design Summary Highlights")
 def result_box(label, value, allowable, unit, safe_if="less"):
