@@ -363,16 +363,16 @@ if B==L:
             tmp = 1 - 2*Rn/(0.85*fc_mp)
             rho_actual = 0.0
             if tmp >= 0:
-                rho_actual = round(0.85 * fc_mp / fy_mp * (1 - math.sqrt(tmp)), 5)
+                rho_actual = round(0.85 * fc_mp / fy_mp * (1 - math.sqrt(tmp)), 4)
             else:
                 rho_actual = 0.0
-            rho_min = round(max(1.4/fy_mp, 0.25 * math.sqrt(fc_mp) / fy_mp), 5)
+            rho_min = round(max(1.4/fy_mp, 0.25 * math.sqrt(fc_mp) / fy_mp), 4)
             rho_des = max(rho_actual, rho_min)
     
             st.write(f"Rn = {Rn:.3f}")
-            st.write(f"rho_actual = {rho_actual:.5f}")
-            st.write(f"rho_min = {rho_min:.5f}")
-            st.write(f"rho_des (governs) = {rho_des:.5f}")
+            st.write(f"rho_actual = {rho_actual:.4f}")
+            st.write(f"rho_min = {rho_min:.4f}")
+            st.write(f"rho_des (governs) = {rho_des:.4f}")
     
             As = rho_des * L * d * 1e6  # mm2
             n = math.ceil(As * 4 / (math.pi * d_b_mm**2))
@@ -411,16 +411,16 @@ if B==L:
             tmp = 1 - 2*Rn/(0.85*fc_mp)
             rho_actual = 0.0
             if tmp >= 0:
-                rho_actual = round(0.85 * fc_mp / fy_mp * (1 - math.sqrt(tmp)), 5)
+                rho_actual = round(0.85 * fc_mp / fy_mp * (1 - math.sqrt(tmp)), 4)
             else:
                 rho_actual = 0.0
-            rho_min = round(max(1.4/fy_mp, 0.25 * math.sqrt(fc_mp) / fy_mp), 5)
+            rho_min = round(max(1.4/fy_mp, 0.25 * math.sqrt(fc_mp) / fy_mp), 4)
             rho_des = max(rho_actual, rho_min)
     
             st.write(f"Rn = {Rn:.3f}")
-            st.write(f"rho_actual = {rho_actual:.5f}")
-            st.write(f"rho_min = {rho_min:.5f}")
-            st.write(f"rho_des (governs) = {rho_des:.5f}")
+            st.write(f"rho_actual = {rho_actual:.4f}")
+            st.write(f"rho_min = {rho_min:.4f}")
+            st.write(f"rho_des (governs) = {rho_des:.4f}")
     
             As = rho_des * L * d * 1e6  # mm2
             n = math.ceil(As * 4 / (math.pi * d_b_mm**2))
@@ -458,16 +458,16 @@ if B==L:
         tmp = 1 - 2*Rn/(0.85*fc_mp)
         rho_actual = 0.0
         if tmp >= 0:
-            rho_actual = round(0.85 * fc_mp / fy_mp * (1 - math.sqrt(tmp)), 5)
+            rho_actual = round(0.85 * fc_mp / fy_mp * (1 - math.sqrt(tmp)), 4)
         else:
             rho_actual = 0.0
-        rho_min = round(max(1.4/fy_mp, 0.25 * math.sqrt(fc_mp) / fy_mp), 5)
+        rho_min = round(max(1.4/fy_mp, 0.25 * math.sqrt(fc_mp) / fy_mp), 4)
         rho_des = max(rho_actual, rho_min)
     
         st.write(f"Rn = {Rn:.3f}")
-        st.write(f"rho_actual = {rho_actual:.5f}")
-        st.write(f"rho_min = {rho_min:.5f}")
-        st.write(f"rho_des (governs) = {rho_des:.5f}")
+        st.write(f"rho_actual = {rho_actual:.4f}")
+        st.write(f"rho_min = {rho_min:.4f}")
+        st.write(f"rho_des (governs) = {rho_des:.4f}")
     
         As = rho_des * L * d * 1e6  # mm2
         n = math.ceil(As * 4 / (math.pi * d_b_mm**2))
@@ -498,16 +498,16 @@ if B==L:
             tmp = 1 - 2*Rn/(0.85*fc_mp)
             rho_actual = 0.0
             if tmp >= 0:
-                rho_actual = round(0.85 * fc_mp / fy_mp * (1 - math.sqrt(tmp)), 5)
+                rho_actual = round(0.85 * fc_mp / fy_mp * (1 - math.sqrt(tmp)), 4)
             else:
                 rho_actual = 0.0
-            rho_min = round(max(1.4/fy_mp, 0.25 * math.sqrt(fc_mp) / fy_mp), 5)
+            rho_min = round(max(1.4/fy_mp, 0.25 * math.sqrt(fc_mp) / fy_mp), 4)
             rho_des = max(rho_actual, rho_min)
     
             st.write(f"Rn = {Rn:.3f}")
-            st.write(f"rho_actual = {rho_actual:.5f}")
-            st.write(f"rho_min = {rho_min:.5f}")
-            st.write(f"rho_des (governs) = {rho_des:.5f}")
+            st.write(f"rho_actual = {rho_actual:.4f}")
+            st.write(f"rho_min = {rho_min:.4f}")
+            st.write(f"rho_des (governs) = {rho_des:.4f}")
     
             As = rho_des * L * d * 1e6  # mm2
             n = math.ceil(As * 4 / (math.pi * d_b_mm**2))
@@ -536,16 +536,16 @@ if B==L:
             tmp = 1 - 2*Rn/(0.85*fc_mp)
             rho_actual = 0.0
             if tmp >= 0:
-                rho_actual = round(0.85 * fc_mp / fy_mp * (1 - math.sqrt(tmp)), 5)
+                rho_actual = round(0.85 * fc_mp / fy_mp * (1 - math.sqrt(tmp)), 4)
             else:
                 rho_actual = 0.0
-            rho_min = round(max(1.4/fy_mp, 0.25 * math.sqrt(fc_mp) / fy_mp), 5)
+            rho_min = round(max(1.4/fy_mp, 0.25 * math.sqrt(fc_mp) / fy_mp), 4)
             rho_des = max(rho_actual, rho_min)
     
             st.write(f"Rn = {Rn:.3f}")
-            st.write(f"rho_actual = {rho_actual:.5f}")
-            st.write(f"rho_min = {rho_min:.5f}")
-            st.write(f"rho_des (governs) = {rho_des:.5f}")
+            st.write(f"rho_actual = {rho_actual:.4f}")
+            st.write(f"rho_min = {rho_min:.4f}")
+            st.write(f"rho_des (governs) = {rho_des:.4f}")
     
             As = rho_des * B * d * 1e6  # mm2
             n = math.ceil(As * 4 / (math.pi * d_b_mm**2))
@@ -613,23 +613,23 @@ if B != L:
     tmp = 1 - 2*Rn/(0.85*fc_mp)
     rho_actual = 0.0
     if tmp >= 0:
-        rho_actual = round(0.85 * fc_mp / fy_mp * (1 - math.sqrt(tmp)), 5)
-    rho_min = round(max(1.4/fy_mp, 0.25 * math.sqrt(fc_mp) / fy_mp), 5)
+        rho_actual = round(0.85 * fc_mp / fy_mp * (1 - math.sqrt(tmp)), 4)
+    rho_min = round(max(1.4/fy_mp, 0.25 * math.sqrt(fc_mp) / fy_mp), 4)
     rho_des = max(rho_actual, rho_min)
     As = rho_des * L * d * 1e6
     nx = As * 4 / (math.pi * d_b_mm**2)
         
     st.write(f"Rn = {Rn:.3f}")
-    st.write(f"rho_actual = {rho_actual:.5f}")
-    st.write(f"rho_min = {rho_min:.5f}")
-    st.write(f"rho_des (governs) = {rho_des:.5f}")
+    st.write(f"rho_actual = {rho_actual:.4f}")
+    st.write(f"rho_min = {rho_min:.4f}")
+    st.write(f"rho_des (governs) = {rho_des:.4f}")
     st.write(f"As = {As:.2f} mm²")
     st.write(f"n = {nx:.2f} along the X-direction")
 
     # Reinforcement for Z direction
     st.write(f"*Reinforcement for Z direction*")
     if CASE == 1:
-        st.subheader("Case 1 – Axial Only")
+        st.write(f"*Case 1 – Axial Only*")
         WU = P_U / L
         x = (L - cy) / 2
         MUD = 0.5 * WU * x**2
@@ -638,7 +638,7 @@ if B != L:
         st.write(f"MUD = {MUD:.2f} kN-m")
 
     if CASE == 2:
-        st.subheader("Case 2 – Axial and Moment about X Direction Only")
+        st.write(f"*Case 2 – Axial and Moment about X Direction Only*")
         x = (L - cy) / 2
         WU1 = P_U / B + 6 * M_UZ / (L ** 2)
         WU2 = P_U / B - 6 * M_UZ / (L ** 2)
@@ -651,7 +651,7 @@ if B != L:
         st.write(f"MUD = {MUD:.2f} kN-m")
 
     if CASE == 3:
-        st.subheader("Case 3 – Axial and Moment about X and Z Direction")
+        st.write(f"*Case 3 – Axial and Moment about X and Z Direction*")
         x = (L - cy) / 2
         WU1 = P_U / L + 6 * M_UZ / (L ** 2)
         WU2 = P_U / L - 6 * M_UZ / (L ** 2)
@@ -686,16 +686,16 @@ if B != L:
     tmp = 1 - 2*Rn/(0.85*fc_mp)
     rho_actual = 0.0
     if tmp >= 0:
-        rho_actual = round(0.85 * fc_mp / fy_mp * (1 - math.sqrt(tmp)), 5)
-    rho_min = round(max(1.4/fy_mp, 0.25 * math.sqrt(fc_mp) / fy_mp), 5)
+        rho_actual = round(0.85 * fc_mp / fy_mp * (1 - math.sqrt(tmp)), 4)
+    rho_min = round(max(1.4/fy_mp, 0.25 * math.sqrt(fc_mp) / fy_mp), 4)
     rho_des = max(rho_actual, rho_min)
     As = rho_des * B * d * 1e6
     nz = As * 4 / (math.pi * d_b_mm**2)
         
     st.write(f"Rn = {Rn:.3f}")
-    st.write(f"rho_actual = {rho_actual:.5f}")
-    st.write(f"rho_min = {rho_min:.5f}")
-    st.write(f"rho_des (governs) = {rho_des:.5f}")
+    st.write(f"rho_actual = {rho_actual:.4f}")
+    st.write(f"rho_min = {rho_min:.4f}")
+    st.write(f"rho_des (governs) = {rho_des:.4f}")
     st.write(f"As = {As:.2f} mm²")
     st.write(f"n = {nz:.2f} along the Z-direction")
 
