@@ -114,7 +114,7 @@ import numpy as np
 X, Y = np.meshgrid(np.linspace(-B/2, B/2, 50),
                    np.linspace(-L/2, L/2, 50))
 
-q = P_U/(B*L) + (6*M_UX/(B*L**2))*X + (6*M_UZ/(L*B**2))*Y
+q = P/(B*L) + (6*M_X/(B*L**2))*X + (6*M_Z/(L*B**2))*Y
 
 import matplotlib.pyplot as plt
 
