@@ -491,7 +491,7 @@ if B==L:
                 st.write(f"*Since MUT > MUD, tension-controlled (phi = 0.9)*")
                 phi = 0.9
             else:
-                st.write(f"*"Since MUT <= MUD, transition region (phi = assumed 0.75)*")
+                st.write(f"*Since MUT <= MUD, transition region (phi = assumed 0.75)*")
                 phi = 0.75
     
             Rn = round(MUD * 1e6 / (phi * L * d**2 * 1e9), 3)
