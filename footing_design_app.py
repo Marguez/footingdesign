@@ -47,8 +47,6 @@ M_LX = st.sidebar.number_input("Live moment about X M_LX (kN-m)", value=0.0, ste
 M_DZ = st.sidebar.number_input("Dead moment about Z M_DZ (kN-m)", value=0.0, step=5.00, format="%.2f")
 M_LZ = st.sidebar.number_input("Live moment about Z M_LZ (kN-m)", value=0.0, step=5.00, format="%.2f")
 
-st.sidebar.caption("For development length calculations.")
-fc_mpc = st.sidebar.number_input("Concrete strength fc' for columns (MPa)", min_value=10.0, value=25.0, step=1.0, format="%.2f")
 
 # quick derived conversions
 cc_m = cc_mm / 1000.0
@@ -724,35 +722,5 @@ if B != L:
                    f"Along short direction: Provide **{nz}–{d_b_mm} mm diameter DRB**, "
                    f"**{nzb}** within the {L}-m band and **{nzs/2}** each side outside the band.")
 
-
-st.subheader("Bearing Strength between the Column and the Footing")
-Ac= cx*cy
-Af= L*B
-st.write(f"Ac = {Ac:.2f}")
-st.write(f"Af = {Af:.2f}")
-P_bc= 0.65*0.85*fc_mpc*Ac
-st.write(f"P_bc = {P_bc:.2f}")
-A_ratio= (Af/Ac)**0.5
-if A_ratio <= 2.0:
-    A_ratio = A_ratio
-    st.write(f"A_ratio = {A_ratio:.2f}")
-else:
-    st.write(f"Since A_ratio > 2.0, let it be 2.0.")
-    A_ratio = 2.0
-P_bf= 0.65*0.85*fc_mp*Ac*A_ratio
-P_b = min(P_bc, P_bf)
-st.write(f"P_bf = {P_bf:.2f}")
-st.write(f"P_b = {P_b:.2f}")
-st.write(f"P_U = {P_U:.2f}")
-
-if P_U > P_b:
-    P_diff = P_U- P_b
-    st.write(f"*Since P_U > P_B,*")
-    st.write(f"P_diff = {P_diff:.2f}")
-    A_sd= P_diff/fy_mp
-    
-
-
-st.write(case_text)
 
 st.write("Done — change any input on the left to see the outputs update in real time.")
