@@ -426,7 +426,7 @@ if B==L:
             st.write(f"rho_min = {rho_min:.4f}")
             st.write(f"rho_des (governs) = {rho_des:.4f}")
     
-            As = rho_des * L * d * 1e6  # mm2
+            As = rho_des * B * d * 1e6  # mm2
             n = math.ceil(As * 4 / (math.pi * d_b_mm**2))
             st.write(f"As = {As:.2f} mm²")
             st.warning(f"Provide {n}–{d_b_mm} mm diameter DRB both ways.")
